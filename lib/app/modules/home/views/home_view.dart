@@ -157,7 +157,7 @@ class HomeView extends GetView<HomeController> {
             padding: EdgeInsets.only(bottom: 5),
             height: 50,
             child: Text(
-              "",
+              "Attached course: MYF course ",
               style: TextStyle(
                 color: Colors.white,
               ),

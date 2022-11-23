@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/routes/app_pages.dart';
 
 import '../../../services/auth_services.dart';
 import '../../../utils/theme_service.dart';
@@ -16,44 +17,70 @@ class MyCoursesView extends GetView<MyCoursesController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(16),
-              // top: Radius.circular(10),
-            ),
-          ),
-          title: Text("Course overview"),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () {
-                  ThemeService().switchTheme();
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              GestureDetector(
+                onTap: () {
+                  print("add");
+                  Get.toNamed(Routes.ADD_COURSE);
                 },
-                icon: const Icon(Icons.dark_mode)),
-            PopupMenuButton<String>(
-              position: PopupMenuPosition.under,
-              tooltip: "Options",
-              onSelected: (dsdsd) {
-                cic.setUserAddiVal = null;
-                cic.setUser = null;
-                AuthServices().logOut();
-              },
-              itemBuilder: (BuildContext context) {
-                return {'Logout'}.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-            ),
-          ],
-        ),
-        body: Center(
-          child: Text(
-            'MyCoursesView is working',
-            style: TextStyle(fontSize: 20),
+                child: Container(
+                  width: Get.width,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.cyan,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: Get.width,
+                height: 90,
+                decoration: BoxDecoration(
+                  color: Colors.cyan,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ListTile(
+                  onTap: () {
+                    print("object");
+                    Get.toNamed(Routes.COURSE_OVERVIEW);
+                  },
+                  title: Text(
+                    "Course one",
+                    textScaleFactor: 1.3,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 2,
+                      color: Colors.white,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "course sub",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 2,
+                      color: Colors.white,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

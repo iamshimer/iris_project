@@ -4,7 +4,10 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/modules/add_course/controllers/add_course_controller.dart';
 
+import '../../../common_widgets/row_list.dart';
+import '../../../routes/app_pages.dart';
 import '../../../services/auth_services.dart';
 import '../../../utils/theme_service.dart';
 import '../../common_interface/controllers/common_interface_controller.dart';
@@ -123,6 +126,35 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             textScaleFactor: 1.5,
                           ),
                         ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ListTile(
+                        onTap: () {
+                          print("object");
+                          Get.toNamed(Routes.SHOW_USER_STATISTICS);
+                        },
+                        title: Text(
+                          "See the course user joining traffic",
+                          textScaleFactor: 1.3,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -324,40 +356,6 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class CourseObjectivesList extends StatelessWidget {
-  const CourseObjectivesList({
-    Key? key,
-    required this.paragraphT,
-  }) : super(key: key);
-
-  final String paragraphT;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      // ignore: prefer_const_literals_to_create_immutables
-      children: [
-        Text(
-          '\u2022',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
-        SizedBox(width: 5),
-        Expanded(
-            child: Text(
-          paragraphT,
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ))
-      ],
     );
   }
 }

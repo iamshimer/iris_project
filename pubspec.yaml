@@ -2,14 +2,14 @@ name: iris_project
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=2.18.4 <3.0.0'
+environment:
+  sdk: ">=2.18.4 <3.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.3.0
   get: 4.6.5
-  flutter: 
+  flutter:
     sdk: flutter
   get_storage: ^2.0.3
   firebase_auth: ^4.1.3
@@ -17,12 +17,15 @@ dependencies:
   custom_radio_grouped_button: ^2.1.2+2
   faker: ^2.0.0
   cloud_functions: ^4.0.5
+  horizontal_data_table: ^4.1.3
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter:
   uses-material-design: true
-
+  assets:
+    - assets/images/profilePic.jpg
+    - assets/images/coverPic.jpg
