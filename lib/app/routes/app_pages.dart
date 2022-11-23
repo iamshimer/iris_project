@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/announcement/bindings/announcement_binding.dart';
+import '../modules/announcement/views/announcement_view.dart';
 import '../modules/auth_init/bindings/auth_init_binding.dart';
 import '../modules/auth_init/views/auth_init_view.dart';
 import '../modules/common_interface/bindings/common_interface_binding.dart';
@@ -62,6 +64,11 @@ class AppPages {
       name: _Paths.COURSE_OVERVIEW,
       page: () => CourseOverviewView(),
       binding: CourseOverviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.ANNOUNCEMENT,
+      page: () => AnnouncementView(),
+      binding: AnnouncementBinding(),
     ),
   ];
 }

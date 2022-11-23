@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:math' as math show Random;
 
@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iris_project/app/modules/common_interface/controllers/common_interface_controller.dart';
+import 'package:iris_project/app/routes/app_pages.dart';
 // import 'package:iris_project/app/utils/theme_service.dart';
 
 import '../controllers/home_controller.dart';
@@ -49,6 +50,7 @@ class HomeView extends GetView<HomeController> {
                     return GestureDetector(
                       onTap: () {
                         print("tapped");
+                        Get.toNamed(Routes.COURSE_OVERVIEW);
                       },
                       child: Container(
                         margin: EdgeInsets.all(5),
@@ -139,7 +141,7 @@ class HomeView extends GetView<HomeController> {
             )),
         height: 113,
         child: ListTile(
-          onTap: () => print("tapped"),
+          onTap: () => Get.toNamed(Routes.ANNOUNCEMENT),
           title: SizedBox(
             height: 59,
             child: Text(
@@ -155,7 +157,7 @@ class HomeView extends GetView<HomeController> {
             padding: EdgeInsets.only(bottom: 5),
             height: 50,
             child: Text(
-              "Dsdjkdkk" * i,
+              "",
               style: TextStyle(
                 color: Colors.white,
               ),

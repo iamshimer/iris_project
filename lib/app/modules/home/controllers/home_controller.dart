@@ -8,6 +8,9 @@ class HomeController extends GetxController {
   final CommonInterfaceController cic = Get.find();
   final db = FirebaseFirestore.instance;
 
+  final isLoadedHome = false.obs;
+  final myFinalTutor = "".obs;
+
   final ddf = "".obs;
 
   @override
@@ -25,8 +28,12 @@ class HomeController extends GetxController {
       print("inside ever");
       if (cic.isTutor) {
         print("is tutor");
+        myFinalTutor.value = "tutor";
+        isLoadedHome.value = true;
       } else {
         print("*******************");
+        myFinalTutor.value = "student";
+        isLoadedHome.value = true;
       }
 
       // _getFirestoreData(cic.getUserAdditional?.email);
