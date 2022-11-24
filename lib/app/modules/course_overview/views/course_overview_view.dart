@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:iris_project/app/modules/add_course/controllers/add_course_controller.dart';
+import 'package:iris_project/app/common_widgets/loading_overlay.dart';
+import 'package:iris_project/app/services/database_services.dart';
 
 import '../../../common_widgets/row_list.dart';
-import '../../../routes/app_pages.dart';
 import '../../../services/auth_services.dart';
 import '../../../utils/theme_service.dart';
 import '../../common_interface/controllers/common_interface_controller.dart';
@@ -15,8 +14,6 @@ import '../controllers/course_overview_controller.dart';
 
 class CourseOverviewView extends GetView<CourseOverviewController> {
   final CommonInterfaceController cic = Get.find();
-  final paragraphT =
-      "Reprehenderit ipsum ipsum anim laboris commodo ex adipisicing veniam. Exercitation aliqua velit aliquip ad consectetur. Pariatur nisi incididunt esse ipsum est.";
   @override
   Widget build(BuildContext context) {
     var boxDecoration = BoxDecoration(
@@ -77,7 +74,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                       decoration: boxDecoration,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             "Course title:",
                             style: TextStyle(
@@ -88,7 +85,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             height: 5,
                           ),
                           Text(
-                            'MyCoursesView is working',
+                            controller.getCModule.courseName,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -118,7 +115,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             height: 5,
                           ),
                           Text(
-                            paragraphT,
+                            controller.getCModule.courseName,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -133,40 +130,11 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                     ),
                     Container(
                       width: Get.width,
-                      decoration: BoxDecoration(
-                        color: Colors.cyan,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          print("object");
-                          Get.toNamed(Routes.SHOW_USER_STATISTICS);
-                        },
-                        title: Text(
-                          "See the course user joining traffic",
-                          textScaleFactor: 1.3,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 2,
-                            color: Colors.white,
-                          ),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: Get.width,
                       padding: EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             "Last updated:",
                             style: TextStyle(
@@ -177,7 +145,9 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             height: 5,
                           ),
                           Text(
-                            "2022.03.12",
+                            DateTime.fromMillisecondsSinceEpoch(
+                                    controller.getCModule.updatedAt ?? 0)
+                                .toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -197,7 +167,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             height: 5,
                           ),
                           Text(
-                            "English",
+                            controller.getCModule.medium,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -208,7 +178,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             height: 10,
                           ),
                           Text(
-                            "Course fee:",
+                            "Course payment:",
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -217,7 +187,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             height: 5,
                           ),
                           Text(
-                            "20\$",
+                            controller.getCModule.charge,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -237,7 +207,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                             height: 5,
                           ),
                           Text(
-                            "lifetime access",
+                            controller.getCModule.subscriptionMode,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -252,6 +222,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                     ),
                     Container(
                       width: Get.width,
+                      height: 350,
                       padding: EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
@@ -268,21 +239,17 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                           SizedBox(
                             height: 5,
                           ),
-                          // CourseObjectivesList(paragraphT: paragraphT),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
+                          Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, idx) {
+                                return CourseObjectivesList(
+                                  paragraphT: controller
+                                      .getCModule.courseObjectives[idx],
+                                );
+                              },
+                              itemCount:
+                                  controller.getCModule.courseObjectives.length,
+                            ),
                           ),
                         ],
                       ),
@@ -292,6 +259,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                     ),
                     Container(
                       width: Get.width,
+                      height: 350,
                       padding: EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
@@ -308,20 +276,17 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                           SizedBox(
                             height: 5,
                           ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
-                          ),
-                          CourseObjectivesList(
-                            paragraphT: Faker().lorem.sentence(),
+                          Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, idx) {
+                                return CourseObjectivesList(
+                                  paragraphT: controller
+                                      .getCModule.studentInstructions[idx],
+                                );
+                              },
+                              itemCount: controller
+                                  .getCModule.studentInstructions.length,
+                            ),
                           ),
                         ],
                       ),
@@ -339,17 +304,53 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                 child: SizedBox(
                   width: Get.width * 0.75,
                   height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Get.toNamed(Routes.LOCATE, arguments: controller.hotel);
-                    },
-                    style:
-                        ElevatedButton.styleFrom(shape: const StadiumBorder()),
-                    child: Text(
-                      "Join now",
-                      textScaleFactor: 1.2,
-                    ),
-                  ),
+                  child: Obx(() {
+                    print("object");
+                    print(cic.getUserAdditional?.joinedCourses);
+                    final res =
+                        cic.getUserAdditional?.joinedCourses?.firstWhere((ele) {
+                      return ele["courseCode"] ==
+                          controller.getCModule.courseCode;
+                    }, orElse: (() => null));
+
+                    print("oop");
+                    print(res);
+
+                    return res == null
+                        ? ElevatedButton(
+                            onPressed: () {
+                              Get.showOverlay(
+                                asyncFunction: () async =>
+                                    await DatabaseServices().joinTheRoomP1(
+                                        controller.getCModule, cic),
+                                loadingWidget: LoadingOverlay(isOverlay: true),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: const StadiumBorder()),
+                            child: Text(
+                              "Join now",
+                              textScaleFactor: 1.2,
+                            ),
+                          )
+                        : ElevatedButton(
+                            onPressed: () {
+                              // Get.showOverlay(
+                              //   asyncFunction: () async => await DatabaseServices()
+                              //       .joinTheRoomP1(controller.getCModule, cic),
+                              //   loadingWidget: LoadingOverlay(isOverlay: true),
+                              // );
+                              print("leave");
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: const StadiumBorder(),
+                                backgroundColor: Colors.red),
+                            child: Text(
+                              "Leave now",
+                              textScaleFactor: 1.2,
+                            ),
+                          );
+                  }),
                 ),
               ),
             ],

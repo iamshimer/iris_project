@@ -5,8 +5,6 @@ import '../controllers/show_user_statistics_controller.dart';
 class ShowUserStatisticsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ShowUserStatisticsController>(
-      () => ShowUserStatisticsController(),
-    );
+    Get.put( ShowUserStatisticsController());
   }
 }

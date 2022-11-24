@@ -46,7 +46,7 @@ class SignUpController extends GetxController {
     passwordCtrl.clear();
   }
 
-  makeDataReady() async {
+  Future makeDataReady() async {
     var faker = Faker();
 
     if (getRoleVal == null) return;
@@ -73,7 +73,7 @@ class SignUpController extends GetxController {
       // tempMap.addIf(emailCtrl.text.isNotEmpty, "email", emailCtrl.text);
     }
 
-    await CloudService.callCloudFun(tempMap);
+    return await CloudService.callCloudFun(tempMap);
   }
 
   @override

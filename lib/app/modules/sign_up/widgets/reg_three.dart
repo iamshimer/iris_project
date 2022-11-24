@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iris_project/app/modules/sign_up/controllers/sign_up_controller.dart';
 
+import '../../../common_widgets/common_input.borders.dart';
+
 class RegThree extends GetView<SignUpController> {
   const RegThree({super.key});
 
@@ -20,11 +22,20 @@ class RegThree extends GetView<SignUpController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            Text(
-              "Your email",
-              textScaleFactor: 2,
-            ),
             TextFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  top: 20,
+                  bottom: 20,
+                ),
+                enabledBorder: outlineInputBorder,
+                focusedBorder: outlineInputBorder,
+                errorBorder: outlineInputBorder2,
+                focusedErrorBorder: outlineInputBorder2,
+                hintText: "Your email",
+              ),
               controller: controller.emailCtrl,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
@@ -38,11 +49,20 @@ class RegThree extends GetView<SignUpController> {
               },
             ),
             sizedBox,
-            Text(
-              "Your password",
-              textScaleFactor: 2,
-            ),
             TextFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  top: 20,
+                  bottom: 20,
+                ),
+                enabledBorder: outlineInputBorder,
+                focusedBorder: outlineInputBorder,
+                errorBorder: outlineInputBorder2,
+                focusedErrorBorder: outlineInputBorder2,
+                hintText: "Your password",
+              ),
               controller: controller.passwordCtrl,
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.done,

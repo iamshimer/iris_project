@@ -3,12 +3,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/modules/common_interface/controllers/common_interface_controller.dart';
 
 import '../../home/controllers/home_controller.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   final hc = Get.put(HomeController());
+  CommonInterfaceController cic = Get.find();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -59,7 +61,7 @@ class ProfileView extends GetView<ProfileController> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      _renderFields("Name", "Ahamad shimer"),
+                      _renderFields("Name", cic.getUserAdditional?.name ?? ""),
                       _renderFields("Age", 15.toString()),
                       _renderFields("Role", "Tutor"),
                     ],

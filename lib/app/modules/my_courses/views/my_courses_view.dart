@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iris_project/app/routes/app_pages.dart';
 
-import '../../../services/auth_services.dart';
-import '../../../utils/theme_service.dart';
 import '../../common_interface/controllers/common_interface_controller.dart';
 import '../controllers/my_courses_controller.dart';
 
@@ -45,41 +43,59 @@ class MyCoursesView extends GetView<MyCoursesController> {
               SizedBox(
                 height: 15,
               ),
-              Container(
-                width: Get.width,
-                height: 90,
-                decoration: BoxDecoration(
-                  color: Colors.cyan,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ListTile(
-                  onTap: () {
-                    print("object");
-                    Get.toNamed(Routes.COURSE_OVERVIEW);
+              Expanded(
+                  child: Obx(
+                () => ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: 15,
+                  ),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: Get.width,
+                      padding: EdgeInsets.only(top: 6),
+                      height: 110,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ListTile(
+                        onTap: () {
+                          print(cic.getUserAdditional!.myCourses![index]
+                              .courseDocId);
+                          Get.toNamed(Routes.ADMIN_COURSE_OVERVIEW,
+                              arguments: cic.getUserAdditional!
+                                  .myCourses![index].courseDocId);
+                        },
+                        title: SizedBox(
+                          height: 51,
+                          child: Text(
+                            cic.getUserAdditional!.myCourses![index].courseName,
+                            textScaleFactor: 1.3,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 2,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        subtitle: Text(
+                          "Created at: ${DateTime.fromMillisecondsSinceEpoch(cic.getUserAdditional!.myCourses![index].createdAt)} ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                        ),
+                      ),
+                    );
                   },
-                  title: Text(
-                    "Course one",
-                    textScaleFactor: 1.3,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 2,
-                      color: Colors.white,
-                    ),
-                  ),
-                  subtitle: Text(
-                    "course sub",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 2,
-                      color: Colors.white,
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
-                  ),
+                  itemCount: cic.getUserAdditional!.myCourses!.length,
                 ),
-              ),
+              )),
             ],
           ),
         ),

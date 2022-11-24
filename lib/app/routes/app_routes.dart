@@ -15,6 +15,9 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const SHOW_USER_STATISTICS = _Paths.SHOW_USER_STATISTICS;
   static const ADD_COURSE = _Paths.ADD_COURSE;
+  static const ADD_ANNOUNCEMENT = _Paths.ADD_ANNOUNCEMENT;
+  static const ADMIN_COURSE_OVERVIEW = _Paths.ADMIN_COURSE_OVERVIEW;
+  static const JOINED_COURSES = _Paths.JOINED_COURSES;
 }
 
 abstract class _Paths {
@@ -31,4 +34,7 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const SHOW_USER_STATISTICS = '/show-user-statistics';
   static const ADD_COURSE = '/add-course';
+  static const ADD_ANNOUNCEMENT = '/add-announcement';
+  static const ADMIN_COURSE_OVERVIEW = '/admin-course-overview';
+  static const JOINED_COURSES = '/joined-courses';
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../common_widgets/common_input.borders.dart';
 import '../controllers/sign_up_controller.dart';
 
 class RegTwo extends GetView<SignUpController> {
@@ -22,11 +23,20 @@ class RegTwo extends GetView<SignUpController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            Text(
-              "Your name",
-              textScaleFactor: 2,
-            ),
             TextFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  top: 20,
+                  bottom: 20,
+                ),
+                enabledBorder: outlineInputBorder,
+                focusedBorder: outlineInputBorder,
+                errorBorder: outlineInputBorder2,
+                focusedErrorBorder: outlineInputBorder2,
+                hintText: "Your name",
+              ),
               controller: controller.nameCtrl,
               textCapitalization: TextCapitalization.words,
               keyboardType: TextInputType.name,
@@ -39,11 +49,20 @@ class RegTwo extends GetView<SignUpController> {
               },
             ),
             sizedBox,
-            Text(
-              "Age",
-              textScaleFactor: 2,
-            ),
             TextFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  top: 20,
+                  bottom: 20,
+                ),
+                enabledBorder: outlineInputBorder,
+                focusedBorder: outlineInputBorder,
+                errorBorder: outlineInputBorder2,
+                focusedErrorBorder: outlineInputBorder2,
+                hintText: "Your age",
+              ),
               controller: controller.ageCtrl,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.next,
@@ -58,11 +77,20 @@ class RegTwo extends GetView<SignUpController> {
               },
             ),
             sizedBox,
-            Text(
-              "Gender",
-              textScaleFactor: 2,
-            ),
             DropdownButtonFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  top: 20,
+                  bottom: 20,
+                ),
+                enabledBorder: outlineInputBorder,
+                focusedBorder: outlineInputBorder,
+                errorBorder: outlineInputBorder2,
+                focusedErrorBorder: outlineInputBorder2,
+                hintText: "Your gender",
+              ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your gender.';
@@ -82,11 +110,6 @@ class RegTwo extends GetView<SignUpController> {
                 controller.setGenderValue = newValue;
               },
               value: controller.genderValue.value,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                filled: true,
-                fillColor: Colors.grey[200],
-              ),
             ),
           ],
         ),

@@ -31,6 +31,7 @@ class AddCourseView extends GetView<AddCourseController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
+                    controller: controller.courseNameCtrl,
                     decoration: InputDecoration(
                       labelText: "Course name",
                     ),
@@ -43,6 +44,7 @@ class AddCourseView extends GetView<AddCourseController> {
                   ),
                   SizedBox(height: 10),
                   TextFormField(
+                    controller: controller.courseDescriptionCtrl,
                     decoration: InputDecoration(
                       labelText: "Course description",
                     ),
@@ -73,10 +75,10 @@ class AddCourseView extends GetView<AddCourseController> {
                           ));
                     }).toList(),
                     onChanged: (newValue) {
-                      // controller.setGenderValue = newValue;
+                      controller.mediumVal.value = newValue;
                       print(newValue);
                     },
-                    value: null,
+                    value: controller.mediumVal.value,
                     decoration: inputDecoration,
                   ),
                   SizedBox(height: 10),
@@ -98,10 +100,10 @@ class AddCourseView extends GetView<AddCourseController> {
                           ));
                     }).toList(),
                     onChanged: (newValue) {
-                      // controller.setGenderValue = newValue;
+                      controller.chargeVal.value = newValue;
                       print(newValue);
                     },
-                    value: null,
+                    value: controller.chargeVal.value,
                     decoration: inputDecoration,
                   ),
                   SizedBox(height: 10),
@@ -114,10 +116,10 @@ class AddCourseView extends GetView<AddCourseController> {
                       return null;
                     },
                     items: [
-                      "lifetime access",
-                      "6 months",
-                      "12 months",
-                      "24 months"
+                      "lifetime-access",
+                      "6-months",
+                      "12-months",
+                      "24-months"
                     ].map((String category) {
                       return DropdownMenuItem(
                           value: category,
@@ -128,10 +130,10 @@ class AddCourseView extends GetView<AddCourseController> {
                           ));
                     }).toList(),
                     onChanged: (newValue) {
-                      // controller.setGenderValue = newValue;
+                      controller.subscriptionVal.value = newValue;
                       print(newValue);
                     },
-                    value: null,
+                    value: controller.subscriptionVal.value,
                     decoration: inputDecoration,
                   ),
                   SizedBox(height: 14),
@@ -141,10 +143,10 @@ class AddCourseView extends GetView<AddCourseController> {
                 width: Get.width * 0.75,
                 child: ElevatedButton(
                   onPressed: () {
-                    // if (controller.getFormKey.currentState!.validate()) {
-                    //   Get.to(() => AddCourseFinalView());
-                    // }
-                    Get.to(() => AddCourseFinalView());
+                    if (controller.getFormKey.currentState!.validate()) {
+                      Get.to(() => AddCourseFinalView());
+                    }
+                    // Get.to(() => AddCourseFinalView());
                   },
                   child: Text("Next"),
                 ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iris_project/app/modules/add_announcement/views/add_announcement_view.dart';
+import 'package:iris_project/app/modules/joined_courses/views/joined_courses_view.dart';
 import 'package:iris_project/app/modules/my_courses/views/my_courses_view.dart';
 import 'package:iris_project/app/services/auth_services.dart';
 import 'package:iris_project/app/utils/theme_service.dart';
-import 'dart:math' as math show Random;
 
 import '../modules/common_interface/controllers/common_interface_controller.dart';
 import '../modules/home/views/home_view.dart';
@@ -75,50 +76,28 @@ class _MyDrawerState extends State<MyDrawer> {
               // DrawerHeader(
               //     decoration: BoxDecoration(
 
-              //       color: Colors.blue,
-              //     ),
-              //     child: Obx(() => Text(
-              //           cic.getUserAdditional?.email ?? "-------",
-              //           textScaleFactor: 1.5,
-              //         ))),
-              eachTile(tileCol, colortileSelected, textStyle, context),
-              ListTile(
-                tileColor: tileCol,
-                selectedTileColor: colortileSelected,
-                selected: shownPage == Routes.PROFILE ? true : false,
-                title: const Text(
-                  'Profile',
-                  style: textStyle,
-                ),
-                onTap: () {
-                  if (shownPage == Routes.PROFILE) {
-                    return Navigator.pop(context);
-                  }
-
-                  setState(() {
-                    shownPage = Routes.PROFILE;
-                  });
-                  Navigator.pop(context);
-                },
+              eachTile(tileCol, colortileSelected, textStyle, context, "Home",
+                  Routes.HOME),
+              eachTile(tileCol, colortileSelected, textStyle, context,
+                  "Profile", Routes.PROFILE),
+              Obx(
+                () => cic.isTutor
+                    ? eachTile(tileCol, colortileSelected, textStyle, context,
+                        "My courses", Routes.MY_COURSES)
+                    : const SizedBox(),
               ),
-              ListTile(
-                tileColor: tileCol,
-                selectedTileColor: colortileSelected,
-                selected: shownPage == Routes.MY_COURSES ? true : false,
-                title: const Text(
-                  "My courses",
-                  style: textStyle,
-                ),
-                onTap: () {
-                  if (shownPage == Routes.MY_COURSES) {
-                    return Navigator.pop(context);
-                  }
+              Obx(
+                () => cic.isTutor
+                    ? eachTile(tileCol, colortileSelected, textStyle, context,
+                        "Add announcement", Routes.ADD_ANNOUNCEMENT)
+                    : const SizedBox(),
+              ),
 
-                  setState(() {
-                    shownPage = Routes.MY_COURSES;
-                  });
-                  Navigator.pop(context);
-                },
+              Obx(
+                () => !cic.isTutor
+                    ? eachTile(tileCol, colortileSelected, textStyle, context,
+                        "Joined courses", Routes.JOINED_COURSES)
+                    : const SizedBox(),
               ),
             ],
           ),
@@ -127,28 +106,33 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 
-  ListTile eachTile(MaterialColor tileCol, MaterialColor colortileSelected,
-      TextStyle textStyle, BuildContext context) {
+  ListTile eachTile(
+      MaterialColor tileCol,
+      MaterialColor colortileSelected,
+      TextStyle textStyle,
+      BuildContext context,
+      String tileTitle,
+      String routeString) {
     const textStyle = TextStyle(
       color: Colors.white,
     );
     return ListTile(
       tileColor: tileCol,
       selectedTileColor: colortileSelected,
-      selected: shownPage == Routes.HOME ? true : false,
-      title: const Text(
-        'Home',
+      selected: shownPage == routeString ? true : false,
+      title: Text(
+        tileTitle,
         style: textStyle,
       ),
       onTap: () {
-        if (shownPage == Routes.HOME) {
-          return Navigator.pop(context);
+        if (shownPage == routeString) {
+          return Get.back();
         }
 
         setState(() {
-          shownPage = Routes.HOME;
+          shownPage = routeString;
         });
-        Navigator.pop(context);
+        Get.back();
       },
     );
   }
@@ -166,6 +150,14 @@ class _MyDrawerState extends State<MyDrawer> {
       case Routes.MY_COURSES:
         {
           return MyCoursesView();
+        }
+      case Routes.ADD_ANNOUNCEMENT:
+        {
+          return AddAnnouncementView();
+        }
+      case Routes.JOINED_COURSES:
+        {
+          return JoinedCoursesView();
         }
 
       default:
@@ -188,6 +180,14 @@ class _MyDrawerState extends State<MyDrawer> {
       case Routes.MY_COURSES:
         {
           return "My courses";
+        }
+      case Routes.ADD_ANNOUNCEMENT:
+        {
+          return "Add announcements";
+        }
+      case Routes.JOINED_COURSES:
+        {
+          return "Joined courses";
         }
 
       default:

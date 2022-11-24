@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 
+import '../modules/add_announcement/views/add_announcement_view.dart';
 import '../modules/add_course/bindings/add_course_binding.dart';
 import '../modules/add_course/views/add_course_view.dart';
+import '../modules/admin_course_overview/bindings/admin_course_overview_binding.dart';
+import '../modules/admin_course_overview/views/admin_course_overview_view.dart';
 import '../modules/announcement/bindings/announcement_binding.dart';
 import '../modules/announcement/views/announcement_view.dart';
 import '../modules/auth_init/bindings/auth_init_binding.dart';
@@ -13,6 +16,8 @@ import '../modules/course_overview/views/course_overview_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/joined_courses/bindings/joined_courses_binding.dart';
+import '../modules/joined_courses/views/joined_courses_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/my_courses/bindings/my_courses_binding.dart';
@@ -88,6 +93,20 @@ class AppPages {
       name: _Paths.ADD_COURSE,
       page: () => AddCourseView(),
       binding: AddCourseBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_ANNOUNCEMENT,
+      page: () => AddAnnouncementView(),
+    ),
+    GetPage(
+      name: _Paths.ADMIN_COURSE_OVERVIEW,
+      page: () => AdminCourseOverviewView(),
+      binding: AdminCourseOverviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.JOINED_COURSES,
+      page: () => JoinedCoursesView(),
+      binding: JoinedCoursesBinding(),
     ),
   ];
 }

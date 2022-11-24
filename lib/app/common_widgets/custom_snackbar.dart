@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 enum StatusValues { success, fail }
 
-showFeedbackStatus(String errMsg, StatusValues stVal, {dynamic code = 999}) {
+showFeedbackStatus(String? errMsg, StatusValues stVal, {dynamic code = 999}) {
   if (Get.isSnackbarOpen) {
     Get.closeCurrentSnackbar();
   }
@@ -15,13 +15,13 @@ showFeedbackStatus(String errMsg, StatusValues stVal, {dynamic code = 999}) {
   );
   Get.snackbar(
     stVal == StatusValues.success ? "Success" : "Failed",
-    errMsg,
+    errMsg ?? "Something went wrong",
     messageText: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // if (stVal != StatusValues.success) ...[
         Text(
-          errMsg,
+          errMsg ?? "Something went wrong",
           style: textStyle,
         ),
         // ],

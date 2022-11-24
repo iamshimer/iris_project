@@ -1,3 +1,5 @@
+import 'package:iris_project/app/modules/home/models/course_module_model.dart';
+
 class UserProvider {
   final int createdAt;
   final String email;
@@ -6,7 +8,7 @@ class UserProvider {
   final String uid;
   final String role;
   final List? joinedCourses;
-  final List? myCourses;
+  final List<CourseModule>? myCourses;
   final int age;
 
   UserProvider({
@@ -22,7 +24,7 @@ class UserProvider {
   });
 
   factory UserProvider.fromMap(Map<String, dynamic> inc) {
-    print(" UP ${inc.toString()}");
+    // print(" UP ${inc["myCourses"]}");
     return UserProvider(
       createdAt: inc["createdAt"],
       email: inc["email"],
@@ -32,7 +34,17 @@ class UserProvider {
       gender: inc["gender"],
       joinedCourses: inc["joinedCourses"],
       age: inc["age"],
-      myCourses: inc["myCourses"],
+      myCourses: convertToModeledList(inc["myCourses"]),
     );
   }
+}
+
+List<CourseModule>? convertToModeledList(List<dynamic> incList) {
+  List<CourseModule>? tempArr = [];
+  for (var i in incList) {
+    tempArr.add(CourseModule.fromMap(i));
+  }
+  print(tempArr);
+
+  return tempArr;
 }

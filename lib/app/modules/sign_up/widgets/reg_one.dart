@@ -17,9 +17,15 @@ class RegOne extends GetView<SignUpController> {
           height: 100,
         ),
         // ignore: prefer_const_constructors
-        Text(
-          "How would you like to signUP?",
-          textScaleFactor: 2.6,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "How would you like to signUP?",
+            textScaleFactor: 2.6,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         Flexible(
           child: CustomRadioButton(

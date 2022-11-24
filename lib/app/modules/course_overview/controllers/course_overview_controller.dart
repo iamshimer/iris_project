@@ -1,20 +1,11 @@
 import 'package:get/get.dart';
 
+import '../../home/models/course_module_model.dart';
+
 class CourseOverviewController extends GetxController {
-  //TODO: Implement CourseOverviewController
+  final _mdl = Rx<CourseModule>(Get.arguments);
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  CourseModule get getCModule {
+    return _mdl.value;
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

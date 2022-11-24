@@ -45,49 +45,56 @@ class HomeView extends GetView<HomeController> {
               ),
               SizedBox(
                 height: 170,
-                child: PageView.builder(
-                  itemBuilder: (ctx, currentIdx) {
-                    return GestureDetector(
-                      onTap: () {
-                        print("tapped");
-                        Get.toNamed(Routes.COURSE_OVERVIEW);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(5),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.primaries[math.Random()
-                              .nextInt(Colors.primaries.length)][500],
-                          borderRadius: BorderRadius.circular(11),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "This is course title of all the items",
-                              style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 50,
-                              child: Text(
-                                "Category: Information and communication technology" *
-                                    10,
-                                style: TextStyle(
-                                  color: Colors.white,
+                child: Obx(
+                  () => PageView.builder(
+                    itemBuilder: (ctx, currentIdx) {
+                      return GestureDetector(
+                        onTap: () {
+                          print("tapped");
+                          Get.toNamed(Routes.COURSE_OVERVIEW,
+                              arguments: controller.getLatTenItem[currentIdx]);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(5),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.primaries[math.Random()
+                                .nextInt(Colors.primaries.length)][500],
+                            borderRadius: BorderRadius.circular(11),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 70,
+                                child: Text(
+                                  controller
+                                      .getLatTenItem[currentIdx].courseName,
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: 50,
+                                child: Text(
+                                  controller.getLatTenItem[currentIdx]
+                                      .courseDescription,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: 10,
-                  controller: pageController,
+                      );
+                    },
+                    itemCount: controller.getLatTenItem.length,
+                    controller: pageController,
+                  ),
                 ),
               ),
               Padding(
