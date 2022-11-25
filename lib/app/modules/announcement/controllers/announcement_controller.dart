@@ -1,20 +1,10 @@
 import 'package:get/get.dart';
+import 'package:iris_project/app/modules/home/models/announcement_model.dart';
 
 class AnnouncementController extends GetxController {
-  //TODO: Implement AnnouncementController
+  final _annModel = Rx<AnnouncementModel>(Get.arguments);
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  AnnouncementModel get getModelData {
+    return _annModel.value;
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

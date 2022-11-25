@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 class CourseModule {
   final String charge;
   final String courseCode;
@@ -36,7 +34,6 @@ class CourseModule {
   });
 
   factory CourseModule.fromMap(Map<String, dynamic> inc) {
-    print("object ${inc["courseDescription"]}");
     return CourseModule(
       courseDocId: inc.containsKey("id")
           ? inc["id"]

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -38,7 +36,7 @@ class AddCourseFinalView extends GetView<AddCourseController> {
                     AddObjective(
                       acc: controller,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     AddInstruction(
@@ -53,12 +51,12 @@ class AddCourseFinalView extends GetView<AddCourseController> {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.showOverlay(
-                        loadingWidget: LoadingOverlay(isOverlay: true),
+                        loadingWidget: const LoadingOverlay(isOverlay: true),
                         asyncFunction: () async =>
                             await controller.prepareData(),
                       );
                     },
-                    child: Text("submit"),
+                    child: const Text("submit"),
                   ),
                 ),
               ),

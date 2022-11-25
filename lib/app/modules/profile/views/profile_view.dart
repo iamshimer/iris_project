@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,9 +6,12 @@ import 'package:iris_project/app/modules/common_interface/controllers/common_int
 import '../../home/controllers/home_controller.dart';
 import '../controllers/profile_controller.dart';
 
+// ignore: must_be_immutable
 class ProfileView extends GetView<ProfileController> {
   final hc = Get.put(HomeController());
   CommonInterfaceController cic = Get.find();
+
+  ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,8 +63,9 @@ class ProfileView extends GetView<ProfileController> {
                   child: Column(
                     children: [
                       _renderFields("Name", cic.getUserAdditional?.name ?? ""),
-                      _renderFields("Age", 15.toString()),
-                      _renderFields("Role", "Tutor"),
+                      _renderFields(
+                          "Age", cic.getUserAdditional?.age.toString() ?? ""),
+                      _renderFields("Role", cic.getUserAdditional!.role),
                     ],
                   ),
                 ),
@@ -76,14 +78,12 @@ class ProfileView extends GetView<ProfileController> {
                   width: Get.width * 0.75,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Get.toNamed(Routes.LOCATE, arguments: controller.hotel);
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
                       backgroundColor: Colors.red,
                     ),
-                    child: Text(
+                    child: const Text(
                       "Delete account",
                       textScaleFactor: 1.2,
                     ),
@@ -103,8 +103,11 @@ class ProfileView extends GetView<ProfileController> {
       children: [
         Text(
           labelName,
-          style: TextStyle(color: Colors.grey),
-          textScaleFactor: 1.50,
+          style: const TextStyle(color: Colors.grey),
+          textScaleFactor: 1.45,
+        ),
+        const SizedBox(
+          height: 6,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,18 +116,18 @@ class ProfileView extends GetView<ProfileController> {
               value,
               textScaleFactor: 1.6,
             ),
-            GestureDetector(
-              onTap: () {
-                print("tapped");
-              },
-              child: Icon(
-                Icons.edit,
-              ),
-            )
+            if (labelName != "Role") ...[
+              GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  Icons.edit,
+                ),
+              )
+            ],
           ],
         ),
-        Divider(),
-        SizedBox(
+        const Divider(),
+        const SizedBox(
           height: 20,
         )
       ],

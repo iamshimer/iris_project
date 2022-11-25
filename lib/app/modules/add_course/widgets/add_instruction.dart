@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +9,7 @@ class AddInstruction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
+      child: SizedBox(
         // color: Colors.red,
         height: 200,
         width: Get.width,
@@ -23,7 +21,7 @@ class AddInstruction extends StatelessWidget {
               child: Column(
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  Center(
+                  const Center(
                     child: Text(
                       "Your course instructions",
                       textScaleFactor: 1.6,
@@ -55,7 +53,7 @@ class AddInstruction extends StatelessWidget {
                                             acc.getStudentInstructions
                                                 .removeAt(index);
                                           },
-                                          icon: Icon(Icons.delete),
+                                          icon: const Icon(Icons.delete),
                                         )
                                       ],
                                     ),
@@ -63,7 +61,7 @@ class AddInstruction extends StatelessWidget {
                                 },
                                 itemCount: acc.getStudentInstructions.length,
                               )
-                            : Center(
+                            : const Center(
                                 child: Text(
                                   "You have no course instructions yet",
                                   textScaleFactor: 2,
@@ -84,7 +82,7 @@ class AddInstruction extends StatelessWidget {
                           acc.setStudentInstructions = res;
                           acc.alertDialogInstCtrl.clear();
                         },
-                  child: Text("Add instruction"),
+                  child: const Text("Add instruction"),
                 )),
           ],
         ),
@@ -97,20 +95,20 @@ class AddInstruction extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Add an instruction'),
-            titlePadding: EdgeInsets.all(18),
-            contentPadding: EdgeInsets.all(28),
+            title: const Text('Add an instruction'),
+            titlePadding: const EdgeInsets.all(18),
+            contentPadding: const EdgeInsets.all(28),
             actions: [
               TextButton(
                   onPressed: () {
                     Get.back(result: acc.alertDialogInstCtrl.text);
                   },
-                  child: Text("Submit"))
+                  child: const Text("Submit"))
             ],
-            actionsPadding: EdgeInsets.all(10),
+            actionsPadding: const EdgeInsets.all(10),
             content: TextField(
               controller: acc.alertDialogInstCtrl,
-              decoration: InputDecoration(hintText: "Text goes here.."),
+              decoration: const InputDecoration(hintText: "Text goes here.."),
             ),
           );
         });

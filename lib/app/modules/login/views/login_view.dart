@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/common_widgets/loading_overlay.dart';
 import 'package:iris_project/app/services/auth_services.dart';
 
 import '../../../common_widgets/rounded_input_borders.dart';
@@ -12,15 +13,59 @@ class LoginView extends StatelessWidget {
   final LoginController lc = Get.put(LoginController());
 
   LoginView({Key? key}) : super(key: key);
+  final Shader linearGradient = const LinearGradient(
+    colors: <Color>[Colors.pink, Colors.green],
+  ).createShader(
+    const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+  );
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  // color: Colors.red,
+                  width: Get.width,
+                  alignment: Alignment.bottomCenter,
+                  height: 250,
+                  child: Image.asset(
+                    "assets/images/logo.png",
+                    width: Get.width * 0.5,
+                  ),
+                ),
+                Center(
+                    child: RichText(
+                  text: TextSpan(
+                    text: 'Login ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        // color: Colors.black,
+                        fontSize: 60,
+                        foreground: Paint()..shader = linearGradient),
+                    children: const <TextSpan>[
+                      TextSpan(
+                          text: 'with',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            fontSize: 20,
+                          )),
+                      TextSpan(
+                          text: ' happy!',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 25,
+                          )),
+                    ],
+                  ),
+                )),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.only(
@@ -32,18 +77,7 @@ class LoginView extends StatelessWidget {
                         child: Column(
                           children: [
                             const Spacer(
-                              flex: 4,
-                            ),
-                            const Text(
-                              "User login",
-                              textScaleFactor: 2.5,
-                              style: TextStyle(
-                                letterSpacing: 4,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const Spacer(
-                              flex: 2,
+                              flex: 1,
                             ),
                             TextFormField(
                               focusNode: lc.emailFocus,
@@ -127,11 +161,23 @@ class LoginView extends StatelessWidget {
                                   lc.emailFocus.unfocus();
                                   lc.passwordFocus.unfocus();
                                   if (lc.formKey.currentState!.validate()) {
-                                    AuthServices().loginUser(lc.emailCtrl.text,
-                                        lc.passwordCtrl.text);
+                                    Get.showOverlay(
+                                        asyncFunction: () => AuthServices()
+                                            .loginUser(lc.emailCtrl.text,
+                                                lc.passwordCtrl.text),
+                                        loadingWidget: const LoadingOverlay(
+                                          isOverlay: true,
+                                        ));
                                   }
                                 },
-                                child: const Text('Submit'),
+                                style: ElevatedButton.styleFrom(
+                                    shape: const StadiumBorder()),
+                                child: const Text(
+                                  'login',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
                             const Spacer(
@@ -155,11 +201,20 @@ class LoginView extends StatelessWidget {
                         )),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    // Get.toNamed(Routes.SIGNUP);
-                  },
-                  child: const Text('Havent any account? Signup here'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: SizedBox(
+                    width: Get.width * 0.30,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.arrow_back),
+                      style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder()),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      label: const Text("Back"),
+                    ),
+                  ),
                 ),
               ],
             ),

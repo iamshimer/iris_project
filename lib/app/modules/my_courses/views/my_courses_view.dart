@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,6 +9,8 @@ import '../controllers/my_courses_controller.dart';
 class MyCoursesView extends GetView<MyCoursesController> {
   final CommonInterfaceController cic = Get.find();
 
+  MyCoursesView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,11 +19,9 @@ class MyCoursesView extends GetView<MyCoursesController> {
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // ignore: prefer_const_literals_to_create_immutables
             children: [
               GestureDetector(
                 onTap: () {
-                  print("add");
                   Get.toNamed(Routes.ADD_COURSE);
                 },
                 child: Container(
@@ -33,26 +31,26 @@ class MyCoursesView extends GetView<MyCoursesController> {
                     color: Colors.cyan,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     size: 30,
                     color: Colors.white,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Expanded(
                   child: Obx(
                 () => ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(
+                  separatorBuilder: (context, index) => const SizedBox(
                     height: 15,
                   ),
                   itemBuilder: (context, index) {
                     return Container(
                       width: Get.width,
-                      padding: EdgeInsets.only(top: 6),
+                      padding: const EdgeInsets.only(top: 6),
                       height: 110,
                       decoration: BoxDecoration(
                         color: Colors.cyan,
@@ -60,8 +58,6 @@ class MyCoursesView extends GetView<MyCoursesController> {
                       ),
                       child: ListTile(
                         onTap: () {
-                          print(cic.getUserAdditional!.myCourses![index]
-                              .courseDocId);
                           Get.toNamed(Routes.ADMIN_COURSE_OVERVIEW,
                               arguments: cic.getUserAdditional!
                                   .myCourses![index].courseDocId);
@@ -71,7 +67,7 @@ class MyCoursesView extends GetView<MyCoursesController> {
                           child: Text(
                             cic.getUserAdditional!.myCourses![index].courseName,
                             textScaleFactor: 1.3,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               letterSpacing: 2,
                               color: Colors.white,
@@ -80,13 +76,13 @@ class MyCoursesView extends GetView<MyCoursesController> {
                         ),
                         subtitle: Text(
                           "Created at: ${DateTime.fromMillisecondsSinceEpoch(cic.getUserAdditional!.myCourses![index].createdAt)} ",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             letterSpacing: 2,
                             color: Colors.white,
                           ),
                         ),
-                        trailing: Icon(
+                        trailing: const Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.white,
                         ),

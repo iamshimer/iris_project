@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:iris_project/app/common_widgets/custom_snackbar.dart';
 import 'package:iris_project/app/services/auth_services.dart';

@@ -1,5 +1,7 @@
 import 'package:iris_project/app/modules/home/models/course_module_model.dart';
 
+import '../../joined_courses/models/joined_course_model.dart';
+
 class UserProvider {
   final int createdAt;
   final String email;
@@ -7,7 +9,7 @@ class UserProvider {
   final String gender;
   final String uid;
   final String role;
-  final List? joinedCourses;
+  final List<JoinedCourse>? joinedCourses;
   final List<CourseModule>? myCourses;
   final int age;
 
@@ -24,7 +26,6 @@ class UserProvider {
   });
 
   factory UserProvider.fromMap(Map<String, dynamic> inc) {
-    // print(" UP ${inc["myCourses"]}");
     return UserProvider(
       createdAt: inc["createdAt"],
       email: inc["email"],
@@ -32,7 +33,7 @@ class UserProvider {
       name: inc["name"],
       uid: inc["uid"],
       gender: inc["gender"],
-      joinedCourses: inc["joinedCourses"],
+      joinedCourses: convertToModeledListTwo(inc["joinedCourses"]),
       age: inc["age"],
       myCourses: convertToModeledList(inc["myCourses"]),
     );
@@ -44,7 +45,15 @@ List<CourseModule>? convertToModeledList(List<dynamic> incList) {
   for (var i in incList) {
     tempArr.add(CourseModule.fromMap(i));
   }
-  print(tempArr);
+
+  return tempArr;
+}
+
+List<JoinedCourse>? convertToModeledListTwo(List<dynamic> incList) {
+  List<JoinedCourse>? tempArr = [];
+  for (var i in incList) {
+    tempArr.add(JoinedCourse.fromMap(i));
+  }
 
   return tempArr;
 }

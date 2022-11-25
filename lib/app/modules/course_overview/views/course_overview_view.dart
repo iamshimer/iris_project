@@ -1,22 +1,22 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/common_widgets/common_app_bar.dart';
 import 'package:iris_project/app/common_widgets/loading_overlay.dart';
+import 'package:iris_project/app/modules/joined_courses/models/joined_course_model.dart';
 import 'package:iris_project/app/services/database_services.dart';
 
 import '../../../common_widgets/row_list.dart';
-import '../../../services/auth_services.dart';
-import '../../../utils/theme_service.dart';
 import '../../common_interface/controllers/common_interface_controller.dart';
 import '../controllers/course_overview_controller.dart';
 
 class CourseOverviewView extends GetView<CourseOverviewController> {
   final CommonInterfaceController cic = Get.find();
+
+  CourseOverviewView({super.key});
   @override
   Widget build(BuildContext context) {
-    var boxDecoration = BoxDecoration(
+    var boxDecoration = const BoxDecoration(
       color: Color.fromARGB(255, 8, 2, 79),
       borderRadius: BorderRadius.all(
         Radius.circular(15),
@@ -25,40 +25,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.blue.shade50,
-        appBar: AppBar(
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(16),
-              // top: Radius.circular(10),
-            ),
-          ),
-          title: Text("Course overview"),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () {
-                  ThemeService().switchTheme();
-                },
-                icon: const Icon(Icons.dark_mode)),
-            PopupMenuButton<String>(
-              position: PopupMenuPosition.under,
-              tooltip: "Options",
-              onSelected: (dsdsd) {
-                cic.setUserAddiVal = null;
-                cic.setUser = null;
-                AuthServices().logOut();
-              },
-              itemBuilder: (BuildContext context) {
-                return {'Logout'}.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-            ),
-          ],
-        ),
+        appBar: returnAppBar(cic, "Course overview"),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -70,23 +37,23 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                   children: [
                     Container(
                       width: Get.width,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Course title:",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             controller.getCModule.courseName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -95,28 +62,28 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
                       width: Get.width,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Course description:",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             controller.getCModule.courseName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -125,90 +92,90 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
                       width: Get.width,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Last updated:",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             DateTime.fromMillisecondsSinceEpoch(
                                     controller.getCModule.updatedAt ?? 0)
                                 .toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                             textScaleFactor: 1.5,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "Medium:",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             controller.getCModule.medium,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                             textScaleFactor: 1.5,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "Course payment:",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             controller.getCModule.charge,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                             textScaleFactor: 1.5,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "Subscribtion mode:",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             controller.getCModule.subscriptionMode,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -217,18 +184,18 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
                       width: Get.width,
                       height: 350,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Course objectives:",
                             style: TextStyle(
                               color: Colors.white,
@@ -236,7 +203,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Expanded(
@@ -254,18 +221,18 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
                       width: Get.width,
                       height: 350,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: boxDecoration,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Student instructions:",
                             style: TextStyle(
                               color: Colors.white,
@@ -273,7 +240,7 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Expanded(
@@ -291,13 +258,13 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
               Center(
@@ -305,47 +272,57 @@ class CourseOverviewView extends GetView<CourseOverviewController> {
                   width: Get.width * 0.75,
                   height: 45,
                   child: Obx(() {
-                    print("object");
-                    print(cic.getUserAdditional?.joinedCourses);
                     final res =
-                        cic.getUserAdditional?.joinedCourses?.firstWhere((ele) {
-                      return ele["courseCode"] ==
-                          controller.getCModule.courseCode;
-                    }, orElse: (() => null));
+                        cic.getUserAdditional?.joinedCourses?.firstWhere(
+                      (ele) {
+                        return ele.courseCode ==
+                            controller.getCModule.courseCode;
+                      },
+                      orElse: () => JoinedCourse(
+                        charge: "",
+                        courseCode: "",
+                        courseName: "",
+                        joinedAt: 0,
+                        medium: "",
+                        ownerEmail: "",
+                        ownerUid: "",
+                        subscriptionMode: "",
+                      ),
+                    );
 
-                    print("oop");
-                    print(res);
-
-                    return res == null
+                    return res?.courseCode == ""
                         ? ElevatedButton(
                             onPressed: () {
                               Get.showOverlay(
                                 asyncFunction: () async =>
-                                    await DatabaseServices().joinTheRoomP1(
+                                    await DatabaseServices().joinTheCourseP1(
                                         controller.getCModule, cic),
-                                loadingWidget: LoadingOverlay(isOverlay: true),
+                                loadingWidget:
+                                    const LoadingOverlay(isOverlay: true),
                               );
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: const StadiumBorder()),
-                            child: Text(
+                            child: const Text(
                               "Join now",
                               textScaleFactor: 1.2,
                             ),
                           )
                         : ElevatedButton(
                             onPressed: () {
-                              // Get.showOverlay(
-                              //   asyncFunction: () async => await DatabaseServices()
-                              //       .joinTheRoomP1(controller.getCModule, cic),
-                              //   loadingWidget: LoadingOverlay(isOverlay: true),
-                              // );
-                              print("leave");
+                              Get.showOverlay(
+                                asyncFunction: () async =>
+                                    await DatabaseServices()
+                                        .removeFromCourseOne(
+                                            controller.getCModule, cic),
+                                loadingWidget:
+                                    const LoadingOverlay(isOverlay: true),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: const StadiumBorder(),
                                 backgroundColor: Colors.red),
-                            child: Text(
+                            child: const Text(
                               "Leave now",
                               textScaleFactor: 1.2,
                             ),

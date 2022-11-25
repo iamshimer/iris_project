@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -25,9 +23,6 @@ class CommonInterfaceController extends GetxController {
   UserProvider? get getUserAdditional => _userAdditional.value;
 
   bool get isTutor {
-    print("object");
-    print(getUserAdditional?.role);
-    print("object");
     return getUserAdditional?.role == "tutor" ? true : false;
   }
 
@@ -63,21 +58,17 @@ class CommonInterfaceController extends GetxController {
         final finalResult = event.data();
 
         if (finalResult != null) {
-          print("not null");
-
           final dutched = UserProvider.fromMap(finalResult);
 
           setUserAddiVal = dutched;
           isFinished.value = true;
         } else {
-          print("null");
           setUserAddiVal = null;
           isFinished.value = true;
           await forceSignOut();
         }
       },
       onError: (error) async {
-        print("Listen failed: $error");
         setUserAddiVal = null;
         isFinished.value = true;
         await forceSignOut();
@@ -91,6 +82,7 @@ class CommonInterfaceController extends GetxController {
 
       setUserAddiVal = null;
     } catch (e) {
+      // ignore: avoid_print
       print("something wrong in signout $e");
     }
   }

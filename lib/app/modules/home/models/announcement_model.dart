@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 class AnnouncementModel {
   final String courseName;
   final int createdAt;
@@ -16,7 +14,6 @@ class AnnouncementModel {
   });
 
   factory AnnouncementModel.fromMap(Map<String, dynamic> inc) {
-    print("object ${inc.toString()}");
     return AnnouncementModel(
       courseName: inc["annCourseName"],
       createdAt: inc["annCreatedAt"],

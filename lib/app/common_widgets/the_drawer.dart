@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iris_project/app/modules/add_announcement/views/add_announcement_view.dart';
@@ -23,8 +25,8 @@ class _MyDrawerState extends State<MyDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    const colortileSelected = Colors.blue;
-    const tileCol = Colors.amber;
+    const colortileSelected = Colors.white;
+    const tileCol = Colors.cyan;
     const textStyle = TextStyle(
       color: Colors.white,
     );
@@ -32,6 +34,7 @@ class _MyDrawerState extends State<MyDrawer> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.cyan,
           centerTitle: true,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -70,12 +73,16 @@ class _MyDrawerState extends State<MyDrawer> {
         ),
         body: renderPage(),
         drawer: Drawer(
+          backgroundColor: Colors.cyan,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              // DrawerHeader(
-              //     decoration: BoxDecoration(
-
               eachTile(tileCol, colortileSelected, textStyle, context, "Home",
                   Routes.HOME),
               eachTile(tileCol, colortileSelected, textStyle, context,
@@ -92,7 +99,6 @@ class _MyDrawerState extends State<MyDrawer> {
                         "Add announcement", Routes.ADD_ANNOUNCEMENT)
                     : const SizedBox(),
               ),
-
               Obx(
                 () => !cic.isTutor
                     ? eachTile(tileCol, colortileSelected, textStyle, context,
@@ -108,7 +114,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
   ListTile eachTile(
       MaterialColor tileCol,
-      MaterialColor colortileSelected,
+      Color colortileSelected,
       TextStyle textStyle,
       BuildContext context,
       String tileTitle,
@@ -122,7 +128,11 @@ class _MyDrawerState extends State<MyDrawer> {
       selected: shownPage == routeString ? true : false,
       title: Text(
         tileTitle,
-        style: textStyle,
+        style: shownPage == routeString
+            ? TextStyle(
+                color: Colors.black,
+              )
+            : textStyle,
       ),
       onTap: () {
         if (shownPage == routeString) {

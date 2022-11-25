@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,9 +9,11 @@ import '../controllers/add_course_controller.dart';
 
 class AddCourseView extends GetView<AddCourseController> {
   final CommonInterfaceController _cic = Get.find();
+
+  AddCourseView({super.key});
   @override
   Widget build(BuildContext context) {
-    var inputDecoration = InputDecoration(
+    var inputDecoration = const InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
     );
     return Scaffold(
@@ -32,7 +31,8 @@ class AddCourseView extends GetView<AddCourseController> {
                 children: [
                   TextFormField(
                     controller: controller.courseNameCtrl,
-                    decoration: InputDecoration(
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
                       labelText: "Course name",
                     ),
                     validator: (value) {
@@ -42,10 +42,11 @@ class AddCourseView extends GetView<AddCourseController> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   TextFormField(
                     controller: controller.courseDescriptionCtrl,
-                    decoration: InputDecoration(
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
                       labelText: "Course description",
                     ),
                     validator: (value) {
@@ -55,9 +56,9 @@ class AddCourseView extends GetView<AddCourseController> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   DropdownButtonFormField(
-                    hint: Text("Course medium"),
+                    hint: const Text("Course medium"),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your gender.';
@@ -76,14 +77,13 @@ class AddCourseView extends GetView<AddCourseController> {
                     }).toList(),
                     onChanged: (newValue) {
                       controller.mediumVal.value = newValue;
-                      print(newValue);
                     },
                     value: controller.mediumVal.value,
                     decoration: inputDecoration,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   DropdownButtonFormField(
-                    hint: Text("Course charge"),
+                    hint: const Text("Course charge"),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your gender.';
@@ -101,14 +101,13 @@ class AddCourseView extends GetView<AddCourseController> {
                     }).toList(),
                     onChanged: (newValue) {
                       controller.chargeVal.value = newValue;
-                      print(newValue);
                     },
                     value: controller.chargeVal.value,
                     decoration: inputDecoration,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   DropdownButtonFormField(
-                    hint: Text("Subscription mode"),
+                    hint: const Text("Subscription mode"),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your gender.';
@@ -131,12 +130,11 @@ class AddCourseView extends GetView<AddCourseController> {
                     }).toList(),
                     onChanged: (newValue) {
                       controller.subscriptionVal.value = newValue;
-                      print(newValue);
                     },
                     value: controller.subscriptionVal.value,
                     decoration: inputDecoration,
                   ),
-                  SizedBox(height: 14),
+                  const SizedBox(height: 14),
                 ],
               ),
               SizedBox(
@@ -148,7 +146,7 @@ class AddCourseView extends GetView<AddCourseController> {
                     }
                     // Get.to(() => AddCourseFinalView());
                   },
-                  child: Text("Next"),
+                  child: const Text("Next"),
                 ),
               ),
             ],

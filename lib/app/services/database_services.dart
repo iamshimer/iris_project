@@ -1,12 +1,9 @@
-// ignore_for_file: avoid_print
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-// import 'package:get/get.dart';
 import 'package:iris_project/app/common_widgets/custom_snackbar.dart';
 import 'package:iris_project/app/modules/common_interface/controllers/common_interface_controller.dart';
 import 'package:iris_project/app/modules/home/models/course_module_model.dart';
-import 'package:iris_project/app/routes/app_pages.dart';
+import 'package:iris_project/app/modules/joined_courses/models/joined_course_model.dart';
 
 class DatabaseServices {
   final _db = FirebaseFirestore.instance;
@@ -76,39 +73,41 @@ class DatabaseServices {
       }).toList();
     } on FirebaseException catch (err) {
       showFeedbackStatus(err.message, StatusValues.fail, code: err.code);
-      print(" -----+---- $err");
+      print(err);
       return null;
     } catch (error) {
       showFeedbackStatus(null, StatusValues.fail);
-      print(" ---------- $error");
+      print(error);
 
       return null;
     }
   }
-  // Future<List<Map<String, dynamic>>?> getHomeDataP1() async {
-  //   try {
-  //     final res = await _db
-  //         .collection("announcements")
-  //         .orderBy("createdAt", descending: true)
-  //         .limit(10)
-  //         .get();
-  //     if (res.size == 0) {
-  //       showFeedbackStatus("No data found", StatusValues.fail);
 
-  //       return null;
-  //     }
+  Future<List<Map<String, dynamic>>?> getHomeDataP2() async {
+    try {
+      final res = await _db
+          .collection("announcements")
+          .orderBy("annCreatedAt", descending: true)
+          .limit(10)
+          .get();
+      if (res.size == 0) {
+        showFeedbackStatus("No data found", StatusValues.fail);
 
-  //     return res.docs.map((e) => e.data()).toList();
-  //   } on FirebaseException catch (err) {
-  //     showFeedbackStatus(err.message, StatusValues.fail, code: err.code);
-  //     print(err);
-  //     return null;
-  //   } catch (error) {
-  //     showFeedbackStatus(null, StatusValues.fail);
-  //     print(error);
-  //     return null;
-  //   }
-  // }
+        return null;
+      }
+
+      return res.docs.map((e) => e.data()).toList();
+    } on FirebaseException catch (err) {
+      showFeedbackStatus(err.message, StatusValues.fail, code: err.code);
+      print(err);
+      return null;
+    } catch (error) {
+      showFeedbackStatus(null, StatusValues.fail);
+      print(error);
+
+      return null;
+    }
+  }
 
   Future addAnnouncement(Map<String, dynamic> incMap) async {
     try {
@@ -142,10 +141,8 @@ class DatabaseServices {
     }
   }
 
-  Future<bool> joinTheRoomP1(
+  Future<bool> joinTheCourseP1(
       CourseModule cm, CommonInterfaceController cic) async {
-    print(
-        "***************************************************** ${cm.courseDocId}");
     try {
       Map<String, dynamic> tempMap = {};
       final now = DateTime.now().millisecondsSinceEpoch;
@@ -162,20 +159,20 @@ class DatabaseServices {
         "currentUserCount": FieldValue.increment(1),
       });
 
-      return joinTheRoomP2(cm, now, cic);
+      return joinTheCourseP2(cm, now, cic);
     } on FirebaseException catch (err) {
       showFeedbackStatus(err.message, StatusValues.fail, code: err.code);
-      print(" ------ $err");
+      print(err);
       return false;
     } catch (error) {
       showFeedbackStatus(null, StatusValues.fail);
-      print("++++++ $error");
+      print(error);
 
       return false;
     }
   }
 
-  Future<bool> joinTheRoomP2(
+  Future<bool> joinTheCourseP2(
       CourseModule cm, int now, CommonInterfaceController cic) async {
     try {
       Map<String, dynamic> tempMap = {};
@@ -192,6 +189,81 @@ class DatabaseServices {
       final roomRef = _db.collection("users").doc(cic.getUserAdditional?.uid);
       await roomRef.update({
         "joinedCourses": FieldValue.arrayUnion([tempMap]),
+      });
+      showFeedbackStatus("Joined the course", StatusValues.success);
+      return true;
+    } on FirebaseException catch (err) {
+      showFeedbackStatus(err.message, StatusValues.fail, code: err.code);
+      print(err);
+      return false;
+    } catch (error) {
+      showFeedbackStatus(null, StatusValues.fail);
+      print(error);
+
+      return false;
+    }
+  }
+
+  Future<bool> removeFromCourseOne(
+      CourseModule cm, CommonInterfaceController cic) async {
+    try {
+      final res = cic.getUserAdditional?.joinedCourses?.firstWhere(
+        (e) => e.courseCode == cm.courseCode,
+        orElse: () => JoinedCourse(
+          charge: "",
+          courseCode: "",
+          courseName: "",
+          joinedAt: 0,
+          medium: "",
+          ownerEmail: "",
+          ownerUid: "",
+          subscriptionMode: "",
+        ),
+      );
+      if (res?.joinedAt != 0) {
+        Map<String, dynamic> tempMap = {};
+        tempMap.addIf(true, "joinedAt", res?.joinedAt);
+        tempMap.addIf(true, "stuEmail", cic.getUserAdditional?.email);
+        tempMap.addIf(true, "stuName", cic.getUserAdditional?.name);
+        tempMap.addIf(true, "stuUid", cic.getUserAdditional?.uid);
+
+        final roomRef = _db.collection("courses").doc(cm.courseDocId);
+        await roomRef.update({
+          "currentUsers": FieldValue.arrayRemove([tempMap]),
+          "currentUserCount": FieldValue.increment(-1)
+        });
+        return removeFromCourseTwo(cm, res?.joinedAt, cic);
+      }
+
+      return true;
+    } on FirebaseException catch (err) {
+      showFeedbackStatus(err.message, StatusValues.fail, code: err.code);
+      print("*-*-*-*-*-* $err");
+      return false;
+    } catch (error) {
+      showFeedbackStatus(null, StatusValues.fail);
+      print("**/*/*/**/ $error");
+
+      return false;
+    }
+  }
+
+  Future<bool> removeFromCourseTwo(
+      CourseModule cm, joinedAt, CommonInterfaceController cic) async {
+    try {
+      Map<String, dynamic> tempMap = {};
+      tempMap.addIf(true, "charge", cm.charge);
+      tempMap.addIf(true, "courseCode", cm.courseCode);
+      tempMap.addIf(true, "courseName", cm.courseName);
+      tempMap.addIf(true, "joinedAt", joinedAt);
+      tempMap.addIf(true, "medium", cm.medium);
+      tempMap.addIf(true, "ownerEmail", cm.ownerEmail);
+      tempMap.addIf(true, "ownerUid", cm.ownerUid);
+      tempMap.addIf(true, "subscriptionMode", cm.subscriptionMode);
+
+      final roomRef = _db.collection("users").doc(cic.getUserAdditional?.uid);
+      await roomRef.update({
+        "joinedCourses": FieldValue.arrayRemove([tempMap]),
       });
 
       return true;

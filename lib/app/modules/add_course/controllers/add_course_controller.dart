@@ -8,41 +8,8 @@ import 'package:iris_project/app/services/database_services.dart';
 class AddCourseController extends GetxController {
   final _formKey = GlobalKey<FormState>();
 
-  // "Aenean sed adipiscing diam donec adipiscing tristique risus nec",
-  // "Diam vulputate ut pharetra sit amet aliquam id diam",
-  // "Egestas dui id ornare arcu odio",
-
-  // "Vitae semper quis lectus nulla",
-  // "Eu feugiat pretium nibh ipsum. Pretium viverra suspendisse",
-  // "potenti nullam ac tortor vitae purus. Eget duis at tellus",
-  // "Tellus in hac habitasse platea dictumst ",
-  // "Et leo duis ut diam quam nulla porttitor",
-  // "Pulvinar sapien et ligula ullamcorper malesuada. In hendrerit"
-  final courseObjectives = <String>[
-    "incididunt ut labore et dolore magna aliqua",
-    "Interdum varius sit amet mattis vulputate enim",
-    "Volutpat commodo sed egestas egestas",
-    "Vitae semper quis lectus nulla",
-    "Eu feugiat pretium nibh ipsum. Pretium viverra suspendisse",
-    "potenti nullam ac tortor vitae purus. Eget duis at tellus",
-    "Tellus in hac habitasse platea dictumst ",
-    "Et leo duis ut diam quam nulla porttitor",
-    "Pulvinar sapien et ligula ullamcorper malesuada. In hendrerit"
-        "Viverra nibh cras pulvinar mattis",
-    "Tristique nulla aliquet enim tortor at auctor",
-    "Orci dapibus ultrices in iaculis nunc sed",
-  ].obs;
-  final studentInstructions = <String>[
-    "Orci dapibus ultrices in iaculis nunc sed",
-    "Aenean sed adipiscing diam donec adipiscing tristique risus nec",
-    "Diam vulputate ut pharetra sit amet aliquam id diam",
-    "incididunt ut labore et dolore magna aliqua",
-    "Interdum varius sit amet mattis vulputate enim",
-    "Viverra nibh cras pulvinar mattis",
-    "Tristique nulla aliquet enim tortor at auctor",
-    "Egestas dui id ornare arcu odio",
-    "Volutpat commodo sed egestas egestas",
-  ].obs;
+  final courseObjectives = <String>[].obs;
+  final studentInstructions = <String>[].obs;
   final alertDialogObjCtrl = TextEditingController();
   final alertDialogInstCtrl = TextEditingController();
   final mediumVal = Rx<String?>(null);

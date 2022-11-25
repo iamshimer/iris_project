@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -30,7 +28,7 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                     TextFormField(
                       controller: controller.titleCtrl,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                           left: 15,
                           right: 15,
                           top: 20,
@@ -49,9 +47,9 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Obx(() => DropdownButtonFormField(
-                          hint: Text("Associated course code"),
+                          hint: const Text("Associated course code"),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please select course code.';
@@ -72,7 +70,7 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                           value: controller.courseValue.value,
                           decoration: InputDecoration(
                             helperText: "check your code before select",
-                            contentPadding: EdgeInsets.only(
+                            contentPadding: const EdgeInsets.only(
                               left: 15,
                               right: 15,
                               top: 20,
@@ -85,13 +83,13 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                             hintText: "Announcement message",
                           ),
                         )),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       maxLength: 750,
                       maxLines: 5,
                       controller: controller.messageCtrl,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                           left: 15,
                           right: 15,
                           top: 20,
@@ -110,7 +108,7 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ],
                 ),
                 SizedBox(
@@ -124,14 +122,14 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                         }
                         await Get.showOverlay(
                           asyncFunction: () => controller.prepareData(),
-                          loadingWidget: LoadingOverlay(isOverlay: true),
+                          loadingWidget: const LoadingOverlay(isOverlay: true),
                         );
                         hc.titleCtrl.clear();
                         hc.messageCtrl.clear();
                         hc.courseValue.value = null;
                       }
                     },
-                    child: Text("Submit"),
+                    child: const Text("Submit"),
                   ),
                 ),
               ],

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,8 +7,6 @@ import 'package:iris_project/app/modules/common_interface/controllers/common_int
 
 import '../../../common_widgets/row_list.dart';
 import '../../../routes/app_pages.dart';
-import '../../../services/auth_services.dart';
-import '../../../utils/theme_service.dart';
 import '../controllers/admin_course_overview_controller.dart';
 
 class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
@@ -20,7 +16,7 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
 
   @override
   Widget build(BuildContext context) {
-    var boxDecoration = BoxDecoration(
+    var boxDecoration = const BoxDecoration(
       color: Color.fromARGB(255, 8, 2, 79),
       borderRadius: BorderRadius.all(
         Radius.circular(15),
@@ -29,10 +25,10 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.blue.shade50,
-        appBar: returnAppBar(_cic, "Course admin OverVw"),
+        appBar: returnAppBar(_cic, "Course admin View"),
         body: Obx(
           () => controller.isLoading.value
-              ? LoadingOverlay(isOverlay: false)
+              ? const LoadingOverlay(isOverlay: false)
               : Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -44,23 +40,23 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                           children: [
                             Container(
                               width: Get.width,
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               decoration: boxDecoration,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Course title:",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     controller.getCM!.courseName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -69,28 +65,28 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
                               width: Get.width,
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               decoration: boxDecoration,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Course description:",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     controller.getCM!.courseName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -99,7 +95,7 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
@@ -110,10 +106,11 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                               ),
                               child: ListTile(
                                 onTap: () {
-                                  print("object");
-                                  Get.toNamed(Routes.SHOW_USER_STATISTICS);
+                                  Get.toNamed(Routes.SHOW_USER_STATISTICS,
+                                      arguments:
+                                          controller.getCM!.currentUsers);
                                 },
-                                title: Text(
+                                title: const Text(
                                   "See the course user joining traffic",
                                   textScaleFactor: 1.3,
                                   style: TextStyle(
@@ -122,116 +119,117 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                trailing: Icon(
+                                trailing: const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.white,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
                               width: Get.width,
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               decoration: boxDecoration,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Last updated:",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     DateTime.fromMillisecondsSinceEpoch(
                                             controller.getCM!.updatedAt ?? 0)
                                         .toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textScaleFactor: 1.5,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Joine user count",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
-                                    controller.getCM!.currentUserCount.toString() ,
-                                    style: TextStyle(
+                                    controller.getCM!.currentUserCount
+                                        .toString(),
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textScaleFactor: 1.5,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Medium:",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     controller.getCM!.medium,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textScaleFactor: 1.5,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Course payment:",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     controller.getCM!.charge,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textScaleFactor: 1.5,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Subscribtion mode:",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     controller.getCM!.subscriptionMode,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -240,18 +238,18 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
                               width: Get.width,
                               height: 350,
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               decoration: boxDecoration,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Course objectives:",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -259,34 +257,36 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Expanded(
                                     child: ListView.builder(
                                       itemBuilder: (context, idx) {
                                         return CourseObjectivesList(
-                                          paragraphT:controller.getCM!.courseObjectives[idx],
+                                          paragraphT: controller
+                                              .getCM!.courseObjectives[idx],
                                         );
                                       },
-                                      itemCount: controller.getCM!.courseObjectives.length,
+                                      itemCount: controller
+                                          .getCM!.courseObjectives.length,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
                               width: Get.width,
                               height: 350,
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               decoration: boxDecoration,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Student instructions:",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -294,29 +294,31 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Expanded(
                                     child: ListView.builder(
                                       itemBuilder: (context, idx) {
                                         return CourseObjectivesList(
-                                          paragraphT: controller.getCM!.studentInstructions[idx],
+                                          paragraphT: controller
+                                              .getCM!.studentInstructions[idx],
                                         );
                                       },
-                                      itemCount: controller.getCM!.studentInstructions.length,
+                                      itemCount: controller
+                                          .getCM!.studentInstructions.length,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       Center(
@@ -328,9 +330,11 @@ class AdminCourseOverviewView extends GetView<AdminCourseOverviewController> {
                               // Get.toNamed(Routes.LOCATE, arguments: controller.hotel);
                             },
                             style: ElevatedButton.styleFrom(
-                                shape: const StadiumBorder()),
-                            child: Text(
-                              "Join now",
+                              shape: const StadiumBorder(),
+                              backgroundColor: Colors.red,
+                            ),
+                            child: const Text(
+                              "Delete module",
                               textScaleFactor: 1.2,
                             ),
                           ),
