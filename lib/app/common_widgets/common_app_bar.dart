@@ -6,6 +6,7 @@ import '../utils/theme_service.dart';
 
 AppBar returnAppBar(CommonInterfaceController cic, String title) {
   return AppBar(
+    backgroundColor: Colors.cyan,
     centerTitle: true,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(

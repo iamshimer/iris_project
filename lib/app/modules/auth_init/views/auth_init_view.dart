@@ -21,7 +21,7 @@ class AuthInitView extends GetView<AuthInitController> {
             Positioned(
               bottom: 0,
               child: ClipPath(
-                clipper: RoundedDiagonalPathClipper(),
+                clipper: WaveClipperTwo(flip: true, reverse: true),
                 child: Container(
                   height: 350,
                   width: Get.width,

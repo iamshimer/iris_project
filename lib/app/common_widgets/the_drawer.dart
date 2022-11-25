@@ -59,6 +59,14 @@ class _MyDrawerState extends State<MyDrawer> {
                 cic.setUserAddiVal = null;
                 cic.setUser = null;
                 AuthServices().logOut();
+                // Get.offNamedUntil(Routes.AUTH_INIT,
+                //     (route) => Get.currentRoute == Routes.COMMON_INTERFACE);
+
+                // Get.offAllNamed(
+                //   Routes.AUTH_INIT,
+                //   predicate: (route) =>
+                //       Get.currentRoute == Routes.COMMON_INTERFACE,
+                // );
               },
               itemBuilder: (BuildContext context) {
                 return {'Logout'}.map((String choice) {
