@@ -5,6 +5,7 @@ import 'package:iris_project/app/common_widgets/loading_overlay.dart';
 import 'package:iris_project/app/services/auth_services.dart';
 
 import '../../../common_widgets/rounded_input_borders.dart';
+import '../../../routes/app_pages.dart';
 import '../../common_interface/controllers/common_interface_controller.dart';
 import '../controllers/login_controller.dart';
 
@@ -162,8 +163,9 @@ class LoginView extends StatelessWidget {
                                   lc.passwordFocus.unfocus();
                                   if (lc.formKey.currentState!.validate()) {
                                     Get.showOverlay(
-                                        asyncFunction: () => AuthServices()
-                                            .loginUser(lc.emailCtrl.text,
+                                        asyncFunction: () async =>
+                                            AuthServices().loginUser(
+                                                lc.emailCtrl.text,
                                                 lc.passwordCtrl.text),
                                         loadingWidget: const LoadingOverlay(
                                           isOverlay: true,
@@ -185,7 +187,8 @@ class LoginView extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                // Get.toNamed(Routes.RESET_PASSWORD);
+                                Get.toNamed(Routes.PASSWORD_RESET,
+                                    arguments: lc.emailCtrl.text);
                               },
                               child: const Text(
                                 "Forget password? reset here",

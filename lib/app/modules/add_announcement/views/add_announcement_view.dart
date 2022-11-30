@@ -26,6 +26,7 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: controller.titleCtrl,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.only(
@@ -49,7 +50,7 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                     ),
                     const SizedBox(height: 10),
                     Obx(() => DropdownButtonFormField(
-                          hint: const Text("Associated course code"),
+                          hint: const Text("Associated course name"),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please select course code.';
@@ -69,7 +70,7 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                           },
                           value: controller.courseValue.value,
                           decoration: InputDecoration(
-                            helperText: "check your code before select",
+                            helperText: "check your course name before select",
                             contentPadding: const EdgeInsets.only(
                               left: 15,
                               right: 15,
@@ -85,6 +86,7 @@ class AddAnnouncementView extends GetView<AddAnnouncementController> {
                         )),
                     const SizedBox(height: 10),
                     TextFormField(
+                      textCapitalization: TextCapitalization.sentences,
                       maxLength: 750,
                       maxLines: 5,
                       controller: controller.messageCtrl,

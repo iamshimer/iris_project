@@ -38,4 +38,18 @@ class AuthServices {
   Future<void> logOut() {
     return _auth.signOut();
   }
+
+  Future<void> sendPasswordReset(String email) async {
+    try {
+      _auth.sendPasswordResetEmail(email: email);
+      showFeedbackStatus("Link sent successfully", StatusValues.success);
+    } on FirebaseAuthException catch (e) {
+      showFeedbackStatus(e.message, StatusValues.fail, code: e.code);
+    } catch (err) {
+      showFeedbackStatus(
+        "Something went wrong",
+        StatusValues.fail,
+      );
+    }
+  }
 }

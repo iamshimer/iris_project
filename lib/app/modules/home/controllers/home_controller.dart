@@ -29,6 +29,8 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     activityOne();
+    activityTwo();
+
     ever(cic.isFinished, callbackFunct);
   }
 
@@ -37,17 +39,15 @@ class HomeController extends GetxController {
       return;
     }
     if (cic.getUserAdditional != null) {
-      activityTwo();
       if (cic.isTutor) {
         myFinalTutor.value = "tutor";
         isLoadedHome.value = true;
-        activityTwo();
+        // fetch tutor specific content
       } else {
         myFinalTutor.value = "student";
         isLoadedHome.value = true;
+        // fetch student specific content
       }
-
-      // _getFirestoreData(cic.getUserAdditional?.email);
     }
   }
 
@@ -58,6 +58,7 @@ class HomeController extends GetxController {
     for (var doc in res) {
       tempList.add(CourseModule.fromMap(doc));
     }
+
     getPrimaryData.addAll(tempList);
   }
 
@@ -68,6 +69,6 @@ class HomeController extends GetxController {
     for (var doc in res) {
       tempList.add(AnnouncementModel.fromMap(doc));
     }
-    getSecondaryData.addAll(tempList);
+    _lstestTenItemTwo.addAll(tempList);
   }
 }

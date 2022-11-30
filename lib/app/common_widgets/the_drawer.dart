@@ -56,8 +56,8 @@ class _MyDrawerState extends State<MyDrawer> {
                 setState(() {
                   shownPage = Routes.HOME;
                 });
-                cic.setUserAddiVal = null;
-                cic.setUser = null;
+                // cic.setUserAddiVal = null;
+                // cic.setUser = null;
                 AuthServices().logOut();
                 // Get.offNamedUntil(Routes.AUTH_INIT,
                 //     (route) => Get.currentRoute == Routes.COMMON_INTERFACE);

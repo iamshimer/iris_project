@@ -11,6 +11,7 @@ class LoginController extends GetxController {
 
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
+  final passwordResetText = TextEditingController();
   final CommonInterfaceController cic = Get.find();
   final formKey = GlobalKey<FormState>();
 
@@ -40,46 +41,10 @@ class LoginController extends GetxController {
     passwordFocus = FocusNode();
   }
 
-  Future<void> loginMe() async {
-    try {
-      final res = await _auth.signInWithEmailAndPassword(
-        email: emailCtrl.text.trim(),
-        password: passwordCtrl.text,
-      );
-
-      cic.getUserFData(res.user?.uid);
-
-      emailCtrl.clear();
-      passwordCtrl.clear();
-      setIsLoading = false;
-    } on FirebaseAuthException catch (e) {
-      setIsLoading = false;
-
-      Get.snackbar(
-        e.code,
-        e.message ?? "Sorry, Something went wrong",
-        duration: Duration(seconds: 4),
-        snackPosition: SnackPosition.BOTTOM,
-        animationDuration: Duration(milliseconds: 600),
-        icon: Icon(
-          Icons.error,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        messageText: Text(
-          e.message ?? "Sorry, Something went wrong",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      );
-    }
-  }
-
   @override
   void onClose() {
     emailFocus.dispose();
     passwordFocus.dispose();
+    passwordResetText.dispose();
   }
 }

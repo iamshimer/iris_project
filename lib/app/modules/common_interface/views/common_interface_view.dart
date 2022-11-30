@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/common_widgets/loading_overlay.dart';
 import 'package:iris_project/app/common_widgets/the_drawer.dart';
 import 'package:iris_project/app/modules/auth_init/views/auth_init_view.dart';
 
@@ -11,8 +12,6 @@ class CommonInterfaceView extends GetView<CommonInterfaceController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return controller.getUser == null ? const AuthInitView() : MyDrawer();
-    });
+    return const LoadingOverlay(isOverlay: false);
   }
 }

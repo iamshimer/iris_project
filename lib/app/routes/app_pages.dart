@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:iris_project/app/modules/login/views/password_reset_view.dart';
 
 import '../modules/add_announcement/views/add_announcement_view.dart';
 import '../modules/add_course/bindings/add_course_binding.dart';
@@ -44,6 +45,10 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.PASSWORD_RESET,
+      page: () => PasswordResetView(),
     ),
     GetPage(
       name: _Paths.COMMON_INTERFACE,

@@ -5,6 +5,7 @@ abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
   static const LOGIN = _Paths.LOGIN;
+  static const PASSWORD_RESET = _Paths.PASSWORD_RESET;
   static const COMMON_INTERFACE = _Paths.COMMON_INTERFACE;
   static const AUTH_INIT = _Paths.AUTH_INIT;
   static const SIGN_UP = _Paths.SIGN_UP;
@@ -18,12 +19,14 @@ abstract class Routes {
   static const ADD_ANNOUNCEMENT = _Paths.ADD_ANNOUNCEMENT;
   static const ADMIN_COURSE_OVERVIEW = _Paths.ADMIN_COURSE_OVERVIEW;
   static const JOINED_COURSES = _Paths.JOINED_COURSES;
+  static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
 }
 
 abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
   static const LOGIN = '/login';
+  static const PASSWORD_RESET = '/password-reset';
   static const COMMON_INTERFACE = '/common-interface';
   static const AUTH_INIT = '/auth-init';
   static const SIGN_UP = '/sign-up';
@@ -37,4 +40,5 @@ abstract class _Paths {
   static const ADD_ANNOUNCEMENT = '/add-announcement';
   static const ADMIN_COURSE_OVERVIEW = '/admin-course-overview';
   static const JOINED_COURSES = '/joined-courses';
+  static const RESET_PASSWORD = '/reset-password';
 }

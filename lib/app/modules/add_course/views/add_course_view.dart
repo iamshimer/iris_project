@@ -30,6 +30,7 @@ class AddCourseView extends GetView<AddCourseController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
+                    textCapitalization: TextCapitalization.words,
                     controller: controller.courseNameCtrl,
                     textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(
@@ -44,6 +45,7 @@ class AddCourseView extends GetView<AddCourseController> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
+                    textCapitalization: TextCapitalization.sentences,
                     controller: controller.courseDescriptionCtrl,
                     textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(

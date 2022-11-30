@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:iris_project/app/common_widgets/the_drawer.dart';
 import 'package:iris_project/app/services/auth_services.dart';
 
 import '../../../routes/app_pages.dart';
@@ -37,17 +40,22 @@ class CommonInterfaceController extends GetxController {
     super.onInit();
 
     _user.bindStream(_aServices.getUserChanges());
-    if (_aServices.getCurrentUser != null) {
-      await getUserFData(_aServices.getCurrentUser?.uid);
-    }
-    // FlutterNativeSplash.remove();
+    // if (_aServices.getCurrentUser != null) {
+    //   await getUserFData(_aServices.getCurrentUser?.uid);
+    //   log("*************************************");
+    //   Get.offAll(() => MyDrawer());
+    // }
 
     ever(_user, (User? us) async {
-      if (Get.currentRoute == Routes.COMMON_INTERFACE) return;
+      if (us == null) {
+        Get.offAllNamed(Routes.AUTH_INIT);
+      } else {
+        await getUserFData(_aServices.getCurrentUser?.uid);
 
-      if (us == null && Get.currentRoute == Routes.LOGIN) return;
+        Get.offAll(() => MyDrawer());
+      }
 
-      Get.offAllNamed(Routes.COMMON_INTERFACE);
+      // Get.offAllNamed(Routes.COMMON_INTERFACE);
     });
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/common_widgets/custom_snackbar.dart';
 import 'package:iris_project/app/modules/common_interface/controllers/common_interface_controller.dart';
 
 import '../controllers/joined_courses_controller.dart';
@@ -19,7 +20,10 @@ class JoinedCoursesView extends GetView<JoinedCoursesController> {
             padding: const EdgeInsets.all(4),
             height: 115,
             child: ListTile(
-              onTap: () {},
+              onTap: () {
+                showFeedbackStatus(
+                    "Goto access class modules", StatusValues.success);
+              },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               tileColor: Colors.cyan,

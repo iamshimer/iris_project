@@ -12,10 +12,10 @@ import 'package:iris_project/app/routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 import '../models/announcement_model.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends StatelessWidget {
   final CommonInterfaceController cic = Get.find();
 
-  final hc = Get.put(HomeController());
+  final controller = Get.put(HomeController());
 
   HomeView({super.key});
   @override
@@ -23,8 +23,7 @@ class HomeView extends GetView<HomeController> {
     var sizedBox = SizedBox(
       height: 170,
       child: Obx(
-        () => controller.isLoadedHome.value &&
-                controller.getPrimaryData.isNotEmpty
+        () => controller.getPrimaryData.isNotEmpty
             ? PageView.builder(
                 itemBuilder: (ctx, currentIdx) {
                   return GestureDetector(
