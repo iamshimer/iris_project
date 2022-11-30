@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iris_project/app/common_widgets/custom_snackbar.dart';
 import 'package:iris_project/app/modules/common_interface/controllers/common_interface_controller.dart';
 
 import '../../home/controllers/home_controller.dart';
@@ -19,57 +20,64 @@ class ProfileView extends GetView<ProfileController> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: Get.height * 0.35,
-                  width: Get.width,
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: Get.width,
-                        height: Get.height * 0.26,
-                        child: Image.asset(
-                          "assets/images/coverPic.jpg",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                          alignment: Alignment.topCenter,
-                          color: Colors.transparent,
-                          width: Get.width,
-                          height: Get.height * 0.18,
-                          child: CircleAvatar(
-                            radius: 71,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              radius: 68,
-                              backgroundColor: Colors.transparent,
-                              child: ClipOval(
-                                  child: Image.asset(
-                                      "assets/images/profilePic.jpg")),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: Get.height * 0.35,
+                      width: Get.width,
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            width: Get.width,
+                            height: Get.height * 0.26,
+                            child: Image.asset(
+                              "assets/images/coverPic.jpg",
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                          Positioned(
+                            bottom: 0,
+                            child: Container(
+                              alignment: Alignment.topCenter,
+                              color: Colors.transparent,
+                              width: Get.width,
+                              height: Get.height * 0.18,
+                              child: CircleAvatar(
+                                radius: 71,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  radius: 68,
+                                  backgroundColor: Colors.transparent,
+                                  child: ClipOval(
+                                      child: Image.asset(
+                                          "assets/images/profilePic.jpg")),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          _renderFields(
+                              "Name", cic.getUserAdditional?.name ?? ""),
+                          _renderFields(
+                              "Email", cic.getUserAdditional?.email ?? ""),
+                          _renderFields("Age",
+                              cic.getUserAdditional?.age.toString() ?? ""),
+                          _renderFields("Role", cic.getUserAdditional!.role),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      _renderFields("Name", cic.getUserAdditional?.name ?? ""),
-                      _renderFields(
-                          "Age", cic.getUserAdditional?.age.toString() ?? ""),
-                      _renderFields("Role", cic.getUserAdditional!.role),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -78,7 +86,10 @@ class ProfileView extends GetView<ProfileController> {
                   width: Get.width * 0.75,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showFeedbackStatus(
+                          "delete the account", StatusValues.success);
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
                       backgroundColor: Colors.red,

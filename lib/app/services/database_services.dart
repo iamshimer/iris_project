@@ -265,7 +265,7 @@ class DatabaseServices {
       await roomRef.update({
         "joinedCourses": FieldValue.arrayRemove([tempMap]),
       });
-
+      showFeedbackStatus("removed from course", StatusValues.success);
       return true;
     } on FirebaseException catch (err) {
       showFeedbackStatus(err.message, StatusValues.fail, code: err.code);

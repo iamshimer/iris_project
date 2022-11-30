@@ -13,46 +13,56 @@ class JoinedCoursesView extends GetView<JoinedCoursesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemBuilder: (context, idx) {
-          return Container(
-            margin: const EdgeInsets.all(8),
-            padding: const EdgeInsets.all(4),
-            height: 115,
-            child: ListTile(
-              onTap: () {
-                showFeedbackStatus(
-                    "Goto access class modules", StatusValues.success);
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              tileColor: Colors.cyan,
-              title: SizedBox(
-                height: 70,
+      body: Obx(
+        () => _cic.getUserAdditional!.joinedCourses!.isEmpty
+            ? const Center(
                 child: Text(
-                  _cic.getUserAdditional!.joinedCourses![idx].courseName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textScaleFactor: 1.30,
+                  "Sorry, You have not joined in any courser yet",
+                  textScaleFactor: 1.2,
                 ),
+              )
+            : ListView.builder(
+                itemBuilder: (context, idx) {
+                  return Container(
+                    margin: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(4),
+                    height: 115,
+                    child: ListTile(
+                      onTap: () {
+                        showFeedbackStatus(
+                            "Goto access class modules", StatusValues.success);
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      tileColor: Colors.cyan,
+                      title: SizedBox(
+                        height: 70,
+                        child: Text(
+                          _cic.getUserAdditional!.joinedCourses![idx]
+                              .courseName,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textScaleFactor: 1.30,
+                        ),
+                      ),
+                      subtitle: Text(
+                        "Joined: ${DateTime.fromMillisecondsSinceEpoch(_cic.getUserAdditional!.joinedCourses![idx].joinedAt).toString()}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        textScaleFactor: 1.2,
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                },
+                itemCount: _cic.getUserAdditional?.joinedCourses?.length,
               ),
-              subtitle: Text(
-                "Joined: ${DateTime.fromMillisecondsSinceEpoch(_cic.getUserAdditional!.joinedCourses![idx].joinedAt).toString()}",
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-                textScaleFactor: 1.2,
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-              ),
-            ),
-          );
-        },
-        itemCount: _cic.getUserAdditional?.joinedCourses?.length,
       ),
     );
   }
