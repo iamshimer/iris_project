@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,12 +21,11 @@ class PasswordResetView extends GetView<LoginController> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              // ignore: prefer_const_literals_to_create_immutables
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 70,
                 ),
-                Text(
+                const Text(
                   "Please enter your email",
                   textScaleFactor: 2.8,
                   style: TextStyle(
@@ -36,8 +34,8 @@ class PasswordResetView extends GetView<LoginController> {
                 ),
                 TextField(
                   textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.only(
                       left: 15,
                       right: 15,
                     ),
